@@ -1265,25 +1265,29 @@ prx.types.ios7_textfield = {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 
 		if(!prx.editor) {
-			$('#'+_id+' .real-input').focus(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
-				$('#'+_id).trigger('inputfocus');
-			});
+			$('#'+_id)
+				.hammer()
+				.find('.real-input')
+				.focus(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
+					$('#'+_id).trigger('inputfocus');
+				})
+				.blur(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
+			        $('#'+_id).trigger('inputblur');
+				})
+				.keyup(function(e){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
+					var event = jQuery.Event("inputkeyup");
+					event.which = e.which;
+					$('#'+_id).trigger(event);
+				})
 
-			$('#'+_id+' .real-input').blur(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
-		        $('#'+_id).trigger('inputblur');
-			});
+			prx.actions.hammer('#'+_id, 'tap');
 
-			$('#'+_id+' .real-input').keyup(function(e){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
-				var event = jQuery.Event("inputkeyup");
-				event.which = e.which;
-				$('#'+_id).trigger(event);
-			});
 		}
 	}
 	,interactions: [
@@ -1430,25 +1434,28 @@ prx.types.ios7_textarea = {
 		var _id = (!containerid) ? item.id : containerid+'-'+item.id;
 
 		if(!prx.editor) {
-			$('#'+_id+' textarea').focus(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
-				$('#'+_id).trigger('inputfocus');
-			});
+			$('#'+_id)
+				.hammer()
+				.find('textarea')
+				.focus(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
+					$('#'+_id).trigger('inputfocus');
+				})
+				.blur(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
+			        $('#'+_id).trigger('inputblur');
+				})
+				.keyup(function(e){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
+					var event = jQuery.Event("inputkeyup");
+					event.which = e.which;
+					$('#'+_id).trigger(event);
+				});
 
-			$('#'+_id+' textarea').blur(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
-		        $('#'+_id).trigger('inputblur');
-			});
-
-			$('#'+_id+' textarea').keyup(function(e){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
-				var event = jQuery.Event("inputkeyup");
-				event.which = e.which;
-				$('#'+_id).trigger(event);
-			});
+				prx.actions.hammer('#'+_id, 'tap');
 		}
 	}
 	,editableProperties: [
@@ -1570,8 +1577,12 @@ prx.types.ios7_checkbox = {
 		        prx.variables._triggerData['input:checked[id='+_id+'-checkbox]']['checkboxchange'] = { state: $(this).is(':checked') };
 		        if(typeof(prx.variables._triggerData['input[id='+_id+'-checkbox]:not(:checked)']) == "undefined") { prx.variables._triggerData['input[id='+_id+'-checkbox]:not(:checked)'] = {}; }
 		        prx.variables._triggerData['input[id='+_id+'-checkbox]:not(:checked)']['checkboxchange'] = { state: $(this).is(':checked') };
+				if(typeof(prx.variables._triggerData['#' + _id]) == "undefined") { prx.variables._triggerData['#' + _id] = {}; }
+				prx.variables._triggerData['#' + _id]['checkboxchange'] = { state: $(this).is(':checked') };
 				$(this).trigger('checkboxchange');
 			})
+			$('#'+_id).hammer();
+			prx.actions.hammer('#' + _id, 'tap');
 		}
 	}
 	, interactions: [
@@ -1751,8 +1762,13 @@ prx.types.ios7_switch = {
 		        prx.variables._triggerData['input:checked[id='+_id+'-flipswitch]']['checkboxchange'] = { state: $(this).is(':checked') };
 		        if(typeof(prx.variables._triggerData['input[id='+_id+'-flipswitch]:not(:checked)']) == "undefined") { prx.variables._triggerData['input[id='+_id+'-flipswitch]:not(:checked)'] = {}; }
 		        prx.variables._triggerData['input[id='+_id+'-flipswitch]:not(:checked)']['checkboxchange'] = { state: $(this).is(':checked') };
+				if(typeof(prx.variables._triggerData['#' + _id]) == "undefined") { prx.variables._triggerData['#' + _id] = {}; }
+				prx.variables._triggerData['#' + _id]['checkboxchange'] = { state: $(this).is(':checked') };
 				$(this).trigger('checkboxchange');
 			})
+
+			$('#'+_id).hammer();
+			prx.actions.hammer('#' + _id, 'tap');
 		}
 	}
 	, interactions: [
@@ -1948,9 +1964,9 @@ prx.types.ios7_slider = {
 		});
 		
 		if(prx.editor){
-		$('#'+_id).find('.slider-button').css({ 
-			'left': ((_dims.width)*(item.sliderPosition*0.01)) + 'px'
-		});
+			$('#'+_id).find('.slider-button').css({
+				'left': ((_dims.width)*(item.sliderPosition*0.01)) + 'px'
+			});
 		}
 
 	}
@@ -2019,7 +2035,7 @@ prx.types.ios7_slider = {
 			
 			TweenLite.set('#'+_id+' .slider-button',{x:((_dims.width)*(item.sliderPosition*0.01))});
 
-			$('#'+_id+' .slider-bar').click(function(e){
+			$('#'+_id+' .slider-bar').hammer().on('click', function(e){
 				var _pos = e.pageX - $(this).offset().left;
 
 				var progress = Math.ceil((_pos / $('#'+_id).width())*100)
@@ -2041,6 +2057,8 @@ prx.types.ios7_slider = {
 				$('#'+_id).trigger('sliderdrag');
 				$('#'+_id).trigger('sliderdragend');
 			});
+
+			prx.actions.hammer('#'+_id+' .slider-bar', 'tap');
 		}
 		else {	
 			$('#'+_id).find(' .slider-button').css({ 
@@ -2285,7 +2303,12 @@ prx.types.ios7_picker = {
 							if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
 					        prx.variables._triggerData['#'+_id]['pickerchange'] = { selected: $(this).text() }
 							$('#'+_id).trigger('pickerchange');
+
+							$(this).find('input').prop('checked', true);
+							//$(this).find('input').attr('checked', 'checked');
 						})
+
+						prx.actions.hammer('#'+_id+' li', 'tap');
 
 						$('#' + _id + ' li').on('click', function(e){
 							e.preventDefault();
@@ -2303,6 +2326,7 @@ prx.types.ios7_picker = {
 					$('#' + _id + ' ul').css('margin-top', (-item.selectedValue * (32*prx.componentsHelper.getScale(item.lib))) + 'px');
 				}
 			}
+
 		}
 		,interactions: [prx.commonproperties.actions]
 	    ,mpactions: {
@@ -2483,38 +2507,40 @@ prx.types.ios8_searchbar = {
 
 
 		if(!prx.editor) {
-			$('#'+_id+' .real-input').focus(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
-				$('#'+_id).trigger('inputfocus');
-			});
+			$('#'+_id)
+				.hammer()
+				.find('.real-input')
+				.focus(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputfocus'] = { value: $(this).val() }
+					$('#'+_id).trigger('inputfocus');
+				})
+				.blur(function(){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
+			        $('#'+_id).trigger('inputblur');
+				})
+				.keyup(function(e){
+					if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
+			        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
+					var event = jQuery.Event("inputkeyup");
+					event.which = e.which;
+					$('#'+_id).trigger(event);
+				})
+				.on('input', function(){
+					if($(this).val() == "") {
+						$('#'+_id+' input + div .placeholder-input').css('display', 'block');
+					} else {
+						$('#'+_id+' input + div .placeholder-input').css('display', 'none');
+					}
+				}).trigger('input');
 
-			$('#'+_id+' .real-input').blur(function(){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputblur'] = { value: $(this).val() };
-		        $('#'+_id).trigger('inputblur');
-			});
+			prx.actions.hammer('#'+_id, 'tap');
 
-			$('#'+_id+' .real-input').keyup(function(e){
-				if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
-		        prx.variables._triggerData['#'+_id]['inputkeyup'] = { value: $(this).val() };
-				var event = jQuery.Event("inputkeyup");
-				event.which = e.which;
-				$('#'+_id).trigger(event);
-			});
-
-
-			$('#'+_id+' .real-input').on('input', function(){
-				if($(this).val() == "") {
-					$('#'+_id+' input + div .placeholder-input').css('display', 'block');
-				} else {
-					$('#'+_id+' input + div .placeholder-input').css('display', 'none');
-				}
-			}).trigger('input');
-
-			$('#' + _id + ' .ios8-searchbar-icon-erase').on('click', function() {
+			$('#' + _id + ' .ios8-searchbar-icon-erase').hammer().on('tap', function() {
 				$('#'+_id+' .real-input').val('').focus().trigger('input');
 			});
+			prx.actions.hammer('#' + _id + ' .ios8-searchbar-icon-erase', 'tap');
 		}
 	}
 	,interactions: [

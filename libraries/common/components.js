@@ -2413,6 +2413,9 @@ prx.types.video = {
 			if(item.videoType=="youtube"){
 				prx.youtube.createVideo(_id+'-youtube');
 			}
+
+			$('#'+_id).hammer();
+			prx.actions.hammer('#' + _id, 'tap');
 		}
 	}
 //if not editor new youtube save to array prx.actions.players
