@@ -28,8 +28,8 @@
 
 		
 
-				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.4.2" />
-				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.4.2"></script>
+				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.4.3" />
+				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.4.3"></script>
 
 				
 					<script src="http://www.youtube.com/player_api"></script>
@@ -169,7 +169,18 @@
 				prx.orientation._orientation = prx.orientation.get();
 				prx.orientation.changeBody(prx.orientation._orientation);
 
-				prx.user = {'country':'ZZ'};
+
+
+				prx.user = {};
+				prx.user.country = 'ZZ';
+
+				
+					prx.user.loggedin = true;
+					prx.user.id = '211947';
+					prx.user.editor_access = true;
+					prx.user.uuid = '44c575c1-03b1-4c43-95cc-d2fe74faaf8b';
+					prx.user.fullname = 'Eric Smith';
+				
 
 				$(document).ready(function(){
 
