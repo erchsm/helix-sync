@@ -28,8 +28,8 @@
 
 		
 
-				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.4.6" />
-				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.4.6"></script>
+				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.8.1" />
+				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.8.1"></script>
 
 				
 					<script src="http://www.youtube.com/player_api"></script>
@@ -136,10 +136,13 @@
 					prx.componentsHelper.getAssetUrl = function(asset) {
 						var assetType = asset.assetType;
 						var url;
-
 						if (typeof(asset.targetSrc) != "undefined") {
 							url =  './assets/' + asset.targetSrc;
-						} else {
+						}else if (typeof(asset.targetSrc)=="undefined" && asset.fileId.substring(asset.fileId.lastIndexOf('.')+1)=="svg" && typeof(asset.color)!="undefined"){
+							url =  './assets/generated/' + asset.fileId.slice(0, -4) + "_" + asset.color + ".svg";
+
+						}
+						  else {
 							if(prx.dropboxfs && asset.bucketsource != "static") {
 								url =  './assets/' + asset.fileId;
 							} else {
@@ -170,7 +173,6 @@
 				prx.orientation.changeBody(prx.orientation._orientation);
 
 
-
 				prx.user = {};
 				prx.user.country = 'ZZ';
 
@@ -181,6 +183,7 @@
 					prx.user.uuid = '44c575c1-03b1-4c43-95cc-d2fe74faaf8b';
 					prx.user.fullname = 'Eric Smith';
 				
+
 
 				$(document).ready(function(){
 
@@ -330,6 +333,9 @@
 					}
 					.actionicon {
 						background-image: url(images/player/actions-sprite-1.png);
+					}
+					.device-cursor-touch,.device-cursor-touch *{
+						cursor: url('images/player/touch-cursor-64.png') 32 32,default !important;
 					}
 				</style>
 			
