@@ -28,8 +28,8 @@
 
 		
 
-				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.8.1" />
-				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.8.1"></script>
+				<link rel="stylesheet" href="./stylesheets/player-engine-min.css?5.14.11.3" />
+				<script type="text/javascript" src="./scripts/player-engine-min.js?5.14.11.3"></script>
 
 				
 					<script src="http://www.youtube.com/player_api"></script>
@@ -264,7 +264,7 @@
 					$('#dragarea').css('height',$(window).height()+'px');
 
 					if (typeof(prx.xdata) != "undefined") {
-						prx.xdata = $.toJSON(prx.xdata);
+						prx.xdata = JSON.stringify(prx.xdata);
 					}
 
 					prx.s3Links = {};

@@ -321,7 +321,7 @@ prx.types.ios7_navbar_buttons = {
 							return item.leftBtnIcon.name;
 						}
 						,value: function(item,name,index) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.leftBtnIcon
 							});
@@ -382,7 +382,7 @@ prx.types.ios7_navbar_buttons = {
 							return item.rightBtnIcon.name;
 						}
 						,value: function(item,name,index) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.rightBtnIcon
 							});
@@ -562,7 +562,7 @@ prx.types.ios7_toolbar = {
       					return item.buttons[index].icon.name;
       				}
       				,value: function(item,name,index) {
-      					return $.toJSON({
+      					return JSON.stringify({
       						allow: 'image',
       						asset: item.buttons[index].icon
       					});
@@ -806,7 +806,7 @@ prx.types.ios7_button_bg = {
 							return item.img.name;
 						}
 						,value: function(item,name,index) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.img
 							});
@@ -1683,7 +1683,7 @@ prx.types.ios7_checkbox = {
 							return item.img.name;
 						}
 						,value: function(item,name,index) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.img
 							});
@@ -2262,7 +2262,7 @@ prx.types.ios7_picker = {
 							// ROUND POSITION TO NEAREST LI (64 = LI HEIGHT)
 
 							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/(32*prx.componentsHelper.getScale(item.lib))));
-							$('#'+_id+' li').eq(index).find('input').attr('checked', 'checked')
+							$('#'+_id+' li').eq(index).find('input').prop('checked', true)
 							prx.scrollable._scrollables[_id + '-inner'].scrollTo(0,index*-(32*prx.componentsHelper.getScale(item.lib)));
 
 							if(typeof(prx.variables._triggerData['#'+_id]) == "undefined") { prx.variables._triggerData['#'+_id] = {}; }
@@ -2284,7 +2284,7 @@ prx.types.ios7_picker = {
 						prx.scrollable._scrollables[_id + '-inner'].on('scroll', function(a,b) {
 
 							var index = Math.abs(Math.round(prx.scrollable._scrollables[_id + '-inner'].y/(32*prx.componentsHelper.getScale(item.lib))));
-							$('#'+_id+' li').eq(index).find('input').attr('checked', 'checked')
+							$('#'+_id+' li').eq(index).find('input').prop('checked', true)
 						});
 
 						//BRINGS SELECTED LI TO CENTER, UNDER INDICATOR, ON CLICK
@@ -2642,7 +2642,7 @@ prx.types.ios8_searchbar = {
 	      					return item.imgSrc.name;
 						}
 						,value: function(item,name) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.imgSrc
 							});
@@ -3373,7 +3373,7 @@ prx.types.ios7_listcomplex = {
 								return item.listitems[index].thumbnail.name;
 							}
 							,value: function(item,name,index) {
-								return $.toJSON({
+								return JSON.stringify({
 									allow: 'image',
 									asset: item.listitems[index].thumbnail
 								});
@@ -3401,7 +3401,7 @@ prx.types.ios7_listcomplex = {
 								return item.listitems[index].buttonicon.name;
 							}
 							,value: function(item,name,index) {
-								return $.toJSON({
+								return JSON.stringify({
 									allow: 'image',
 									asset: item.listitems[index].buttonicon
 								});
@@ -4627,7 +4627,7 @@ prx.types.ios8_map_tag = {
 								return item.imgSrc.name;
 						}
 						,value: function(item,name) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.imgSrc
 							});
@@ -4658,7 +4658,7 @@ prx.types.ios8_map_tag = {
 	      					return item.imgSrc2.name;
 						}
 						,value: function(item,name) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.imgSrc2
 							});
@@ -4772,7 +4772,7 @@ prx.types.ios8_message_bubble = {
 	      					return item.thumbnail.name;
 						}
 						,value: function(item,name) {
-							return $.toJSON({
+							return JSON.stringify({
 								allow: 'image',
 								asset: item.thumbnail
 							});
